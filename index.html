@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>撞球小工具</title>
-    <!-- 使用 Tailwind CSS 加快視覺美化 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- 引入 FontAwesome 圖標 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .page { display: none; }
@@ -15,7 +13,7 @@
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 min-h-screen flex flex-col md:flex-row">
 
-    <aside class="bg-slate-800 text-white w-full md:w-64 flex-shrink-0 flex flex-col shadow-lg">
+    <aside class="bg-slate-800 text-white w-full md:w-64 flex-shrink-0 flex flex-col shadow-lg print:hidden">
         <div class="p-5 flex items-center justify-between border-b border-slate-700">
             <h1 class="text-xl font-bold tracking-wider flex items-center gap-2">
                 <i class="fa-solid fa-circle text-emerald-400"></i> 撞球小工具
@@ -47,7 +45,7 @@
         </nav>
     </aside>
 
-    <main class="flex-grow p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
+    <main class="flex-grow p-4 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
         
         <section id="page-home" class="page active space-y-8">
             <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 text-white shadow-md">
@@ -57,129 +55,185 @@
             
             <div>
                 <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center gap-2">
-                    <i class="fa-solid fa-star text-amber-500"></i> 核心功能目錄
+                    <i class="fa-solid fa-star text-amber-500"></i> 功能目錄
                 </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div onclick="switchPage('score-9ball')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition">9</div>
                         <h4 class="font-bold text-lg mb-1">9 號球記分板</h4>
-                        <p class="text-gray-500 text-sm">追蹤 1 到 9 號球的局數與進球狀態。</p>
                     </div>
                     <div onclick="switchPage('score-8ball')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-purple-600 group-hover:text-white transition">8</div>
                         <h4 class="font-bold text-lg mb-1">8 號球記分板</h4>
-                        <p class="text-gray-500 text-sm">標準 8 號球對抗計分與殘球紀錄。</p>
                     </div>
                     <div onclick="switchPage('score-14and1')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-amber-600 group-hover:text-white transition">14</div>
                         <h4 class="font-bold text-lg mb-1">14&1 記分板</h4>
-                        <p class="text-gray-500 text-sm">連續計分制，精準統計選手總得分與剩餘球數。</p>
                     </div>
                     <div onclick="switchPage('records')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-pen-to-square"></i></div>
                         <h4 class="font-bold text-lg mb-1">練習紀錄頁面</h4>
-                        <p class="text-gray-500 text-sm">拍照或建立球局備忘錄，有效管理自主練習成效。</p>
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
 
         <section id="page-score-9ball" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">9 號球標準記分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">9 號球記分板</h2>
                 <button onclick="reset9Ball()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 選手 A -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 A" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-indigo-600 my-4" id="score9-a">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score9-a', 1)" class="bg-indigo-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-indigo-700 text-center flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score9-a', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 text-center flex items-center justify-center">-</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 landscape:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-center min-h-[250px] relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-9-a" value="#4f46e5" onchange="updateGenericColor('9', 'a')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
                     </div>
-                    <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">當前局殘球紀錄</p>
-                    <div class="grid grid-cols-5 gap-2" id="balls9-a"></div>
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span id="name-9-a" class="text-xl font-bold text-gray-700">A</span>
+                        <button onclick="editPlayerName('name-9-a')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                    </div>
+                    <div class="text-7xl font-black my-4 transition-colors" style="color: #4f46e5;" id="score9-a">0</div>
+                    <div class="flex justify-center gap-4">
+                        <button id="btn-plus-9-a" onclick="changeScore('score9-a', 1)" class="text-white w-14 h-14 rounded-full text-2xl font-bold shadow flex items-center justify-center transition-colors" style="background-color: #4f46e5;">+</button>
+                        <button onclick="changeScore('score9-a', -1)" class="bg-gray-200 text-gray-700 w-14 h-14 rounded-full text-2xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+                    </div>
                 </div>
-                <!-- 選手 B -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 B" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-rose-600 my-4" id="score9-b">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score9-b', 1)" class="bg-rose-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-rose-700 text-center flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score9-b', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 text-center flex items-center justify-center">-</button>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-center min-h-[250px] relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-9-b" value="#e11d48" onchange="updateGenericColor('9', 'b')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
                     </div>
-                    <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">當前局殘球紀錄</p>
-                    <div class="grid grid-cols-5 gap-2" id="balls9-b"></div>
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span id="name-9-b" class="text-xl font-bold text-gray-700">B</span>
+                        <button onclick="editPlayerName('name-9-b')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                    </div>
+                    <div class="text-7xl font-black my-4 transition-colors" style="color: #e11d48;" id="score9-b">0</div>
+                    <div class="flex justify-center gap-4">
+                        <button id="btn-plus-9-b" onclick="changeScore('score9-b', 1)" class="text-white w-14 h-14 rounded-full text-2xl font-bold shadow flex items-center justify-center transition-colors" style="background-color: #e11d48;">+</button>
+                        <button onclick="changeScore('score9-b', -1)" class="bg-gray-200 text-gray-700 w-14 h-14 rounded-full text-2xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="page-score-8ball" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">8 號球標準記分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">8 號球記分板</h2>
                 <button onclick="reset8Ball()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 選手 A -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 A" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-purple-600 my-4" id="score8-a">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score8-a', 1)" class="bg-purple-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-purple-700 flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score8-a', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 landscape:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-center min-h-[250px] relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-8-a" value="#9333ea" onchange="updateGenericColor('8', 'a')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
                     </div>
-                    <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">當前局殘球紀錄</p>
-                    <div class="grid grid-cols-5 gap-2" id="balls8-a"></div>
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span id="name-8-a" class="text-xl font-bold text-gray-700">A</span>
+                        <button onclick="editPlayerName('name-8-a')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                    </div>
+                    <div class="text-7xl font-black my-4 transition-colors" style="color: #9333ea;" id="score8-a">0</div>
+                    <div class="flex justify-center gap-4">
+                        <button id="btn-plus-8-a" onclick="changeScore('score8-a', 1)" class="text-white w-14 h-14 rounded-full text-2xl font-bold shadow flex items-center justify-center transition-colors" style="background-color: #9333ea;">+</button>
+                        <button onclick="changeScore('score8-a', -1)" class="bg-gray-200 text-gray-700 w-14 h-14 rounded-full text-2xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+                    </div>
                 </div>
-                <!-- 選手 B -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 B" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-amber-600 my-4" id="score8-b">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score8-b', 1)" class="bg-amber-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-amber-700 flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score8-b', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-center min-h-[250px] relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-8-b" value="#d97706" onchange="updateGenericColor('8', 'b')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
                     </div>
-                    <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">當前局殘球紀錄</p>
-                    <div class="grid grid-cols-5 gap-2" id="balls8-b"></div>
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span id="name-8-b" class="text-xl font-bold text-gray-700">B</span>
+                        <button onclick="editPlayerName('name-8-b')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                    </div>
+                    <div class="text-7xl font-black my-4 transition-colors" style="color: #d97706;" id="score8-b">0</div>
+                    <div class="flex justify-center gap-4">
+                        <button id="btn-plus-8-b" onclick="changeScore('score8-b', 1)" class="text-white w-14 h-14 rounded-full text-2xl font-bold shadow flex items-center justify-center transition-colors" style="background-color: #d97706;">+</button>
+                        <button onclick="changeScore('score8-b', -1)" class="bg-gray-200 text-gray-700 w-14 h-14 rounded-full text-2xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="page-score-14and1" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">14&1 連續計分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">14&1 計分板</h2>
                 <button onclick="reset141()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 選手 A -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 A" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-teal-600 my-4" id="score14-a">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score14-a', 1)" class="bg-teal-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-teal-700 flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score14-a', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 landscape:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-14-a" value="#0d9488" onchange="update141Color('a')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-center gap-2 mb-2 mt-2">
+                            <span id="name-14-a" class="text-xl font-bold text-gray-700">A</span>
+                            <button onclick="editPlayerName('name-14-a')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                        </div>
+                        <div class="text-7xl font-black transition-colors" style="color: #0d9488;" id="score14-a">0</div>
                     </div>
                     <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">單局進球統計 (1-14顆)</p>
-                    <div class="grid grid-cols-4 gap-2" id="balls14-a"></div>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <p class="text-sm font-semibold text-gray-500 mb-2">進球數</p>
+                            <div class="flex justify-center items-center gap-4">
+                                <button onclick="changeCurrentStat('current-balls-a', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
+                                <span id="current-balls-a" class="text-2xl font-bold text-gray-700 min-w-[40px]">0</span>
+                                <button id="btn-plus-ball-a" onclick="changeCurrentStat('current-balls-a', 1)" class="w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center transition-colors" style="background-color: #ccfbf1; color: #0d9488;">+</button>
+                            </div>
+                        </div>
+                        <div class="bg-rose-50/50 p-3 rounded-xl border border-rose-100">
+                            <p class="text-sm font-semibold text-rose-600 mb-2">犯規</p>
+                            <div class="flex justify-center items-center gap-4">
+                                <button onclick="changeCurrentStat('current-fouls-a', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
+                                <span id="current-fouls-a" class="text-2xl font-bold text-rose-600 min-w-[40px]">0</span>
+                                <button onclick="changeCurrentStat('current-fouls-a', 1)" class="bg-rose-100 text-rose-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-rose-200">+</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- 選手 B -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center">
-                    <input type="text" value="選手 B" class="text-xl font-bold text-center border-b border-transparent focus:border-gray-300 focus:outline-none mb-4 w-full">
-                    <div class="text-6xl font-black text-orange-600 my-4" id="score14-b">0</div>
-                    <div class="flex justify-center gap-3 mb-6">
-                        <button onclick="changeScore('score14-b', 1)" class="bg-orange-600 text-white w-12 h-12 rounded-full text-xl font-bold shadow hover:bg-orange-700 flex items-center justify-center">+</button>
-                        <button onclick="changeScore('score14-b', -1)" class="bg-gray-200 text-gray-700 w-12 h-12 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center">-</button>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-center flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+                        <i class="fa-solid fa-palette text-gray-400 text-xs"></i>
+                        <input type="color" id="color-14-b" value="#ea580c" onchange="update141Color('b')" class="w-5 h-5 border-0 cursor-pointer p-0 bg-transparent">
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-center gap-2 mb-2 mt-2">
+                            <span id="name-14-b" class="text-xl font-bold text-gray-700">B</span>
+                            <button onclick="editPlayerName('name-14-b')" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-pen text-sm"></i></button>
+                        </div>
+                        <div class="text-7xl font-black transition-colors" style="color: #ea580c;" id="score14-b">0</div>
                     </div>
                     <hr class="my-4 border-gray-100">
-                    <p class="text-sm text-gray-400 mb-3">單局進球統計 (1-14顆)</p>
-                    <div class="grid grid-cols-4 gap-2" id="balls14-b"></div>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <p class="text-sm font-semibold text-gray-500 mb-2">進球數</p>
+                            <div class="flex justify-center items-center gap-4">
+                                <button onclick="changeCurrentStat('current-balls-b', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
+                                <span id="current-balls-b" class="text-2xl font-bold text-gray-700 min-w-[40px]">0</span>
+                                <button id="btn-plus-ball-b" onclick="changeCurrentStat('current-balls-b', 1)" class="w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center transition-colors" style="background-color: #ffedd5; color: #ea580c;">+</button>
+                            </div>
+                        </div>
+                        <div class="bg-rose-50/50 p-3 rounded-xl border border-rose-100">
+                            <p class="text-sm font-semibold text-rose-600 mb-2">犯規</p>
+                            <div class="flex justify-center items-center gap-4">
+                                <button onclick="changeCurrentStat('current-fouls-b', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
+                                <span id="current-fouls-b" class="text-2xl font-bold text-rose-600 min-w-[40px]">0</span>
+                                <button onclick="changeCurrentStat('current-fouls-b', 1)" class="bg-rose-100 text-rose-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-rose-200">+</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="pt-4">
+                <button onclick="calculateAll141()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-2xl shadow-md transition flex items-center justify-center gap-3 text-lg tracking-wider">
+                    <i class="fa-solid fa-calculator text-xl"></i> ENTER
+                </button>
             </div>
         </section>
 
@@ -188,32 +242,12 @@
                 <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
                     <i class="fa-solid fa-folder-open text-emerald-600"></i> 練習紀錄管理
                 </h2>
-                <!-- 新增紀錄按鈕 -->
                 <button onclick="openRecordModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md transition text-xl">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
-
-            <div id="records-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group">
-                    <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-400 border-b border-gray-200 relative">
-                        <i class="fa-regular fa-image text-4xl"></i>
-                    </div>
-                    <div class="p-4 flex justify-between items-center bg-gray-50">
-                        <span class="font-medium text-gray-700">遠檯直線球推進練習</span>
-                        <button onclick="this.closest('.group').remove()" class="text-red-400 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
+            <div id="records-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group">
-                    <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-400 border-b border-gray-200 relative">
-                        <i class="fa-regular fa-image text-4xl"></i>
-                    </div>
-                    <div class="p-4 flex justify-between items-center bg-gray-50">
-                        <span class="font-medium text-gray-700">底袋切球角度控制</span>
-                        <button onclick="this.closest('.group').remove()" class="text-red-400 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -236,6 +270,7 @@
     </div>
 
     <script>
+        // 頁面切換控制
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById(`page-${pageId}`);
@@ -245,18 +280,34 @@
                 btn.classList.remove('bg-slate-700', 'font-medium', 'text-white');
                 btn.classList.add('text-slate-300');
             });
-            event.currentTarget.classList.add('bg-slate-700', 'font-medium', 'text-white');
-            event.currentTarget.classList.remove('text-slate-300');
+            
+            const clickedBtn = document.querySelector(`button[onclick="switchPage('${pageId}')"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.add('bg-slate-700', 'font-medium', 'text-white');
+                clickedBtn.classList.remove('text-slate-300');
+            }
             
             if (window.innerWidth < 768) {
                 document.getElementById('nav-menu').classList.add('hidden');
             }
         }
 
+        // 漢堡選單 RWD 開關
         document.getElementById('menu-toggle').addEventListener('click', () => {
             document.getElementById('nav-menu').classList.toggle('hidden');
         });
 
+        // 點擊「✏️」客製化更換選手名字
+        function editPlayerName(id) {
+            const el = document.getElementById(id);
+            const currentName = el.innerText;
+            const newName = prompt("請輸入自訂的選手名稱：", currentName);
+            if (newName !== null && newName.trim() !== "") {
+                el.innerText = newName.trim();
+            }
+        }
+
+        // 通用大總分計分加減
         function changeScore(id, val) {
             const el = document.getElementById(id);
             let current = parseInt(el.innerText) || 0;
@@ -265,71 +316,92 @@
             el.innerText = current;
         }
 
-        function initBallCheckboxes(containerId, count) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
-            for(let i = 1; i <= count; i++) {
-                const label = document.createElement('label');
-                label.className = "flex flex-col items-center p-2 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer select-none hover:bg-gray-100 transition";
-                label.innerHTML = `
-                    <span class="text-xs font-bold text-gray-500 mb-1">${i}</span>
-                    <input type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500">
-                `;
-                container.appendChild(label);
-            }
+        // 9號與8號球隨選色盤變色功能
+        function updateGenericColor(gameType, player) {
+            const hexColor = document.getElementById(`color-${gameType}-${player}`).value;
+            document.getElementById(`score${gameType}-${player}`).style.color = hexColor;
+            document.getElementById(`btn-plus-${gameType}-${player}`).style.backgroundColor = hexColor;
         }
 
         function reset9Ball() {
             document.getElementById('score9-a').innerText = '0';
             document.getElementById('score9-b').innerText = '0';
-            initBallCheckboxes('balls9-a', 9);
-            initBallCheckboxes('balls9-b', 9);
+            document.getElementById('name-9-a').innerText = 'A';
+            document.getElementById('name-9-b').innerText = 'B';
+            document.getElementById('color-9-a').value = '#4f46e5';
+            document.getElementById('color-9-b').value = '#e11d48';
+            updateGenericColor('9', 'a');
+            updateGenericColor('9', 'b');
         }
 
         function reset8Ball() {
             document.getElementById('score8-a').innerText = '0';
             document.getElementById('score8-b').innerText = '0';
-            initBallCheckboxes('balls8-a', 7); 
-            initBallCheckboxes('balls8-b', 7);
+            document.getElementById('name-8-a').innerText = 'A';
+            document.getElementById('name-8-b').innerText = 'B';
+            document.getElementById('color-8-a').value = '#9333ea';
+            document.getElementById('color-8-b').value = '#d97706';
+            updateGenericColor('8', 'a');
+            updateGenericColor('8', 'b');
+        }
+
+        // 14&1 計分專用小按鈕加減
+        function changeCurrentStat(id, val) {
+            const el = document.getElementById(id);
+            let current = parseInt(el.innerText) || 0;
+            current += val;
+            if (current < 0) current = 0; 
+            el.innerText = current;
+        }
+
+        // 14&1 專用客製化色盤變色
+        function update141Color(player) {
+            const hexColor = document.getElementById(`color-14-${player}`).value;
+            document.getElementById(`score14-${player}`).style.color = hexColor;
+            const plusBtn = document.getElementById(`btn-plus-ball-${player}`);
+            plusBtn.style.color = hexColor;
+            plusBtn.style.backgroundColor = hexColor + "1a"; 
+        }
+
+        // 14&1 一鍵 ENTER 同步累加結算
+        function calculateAll141() {
+            ['a', 'b'].forEach(player => {
+                const scoreEl = document.getElementById(`score14-${player}`);
+                const ballsEl = document.getElementById(`current-balls-${player}`);
+                const foulsEl = document.getElementById(`current-fouls-${player}`);
+
+                let totalScore = parseInt(scoreEl.innerText) || 0;
+                let currentBalls = parseInt(ballsEl.innerText) || 0;
+                let currentFouls = parseInt(foulsEl.innerText) || 0;
+
+                totalScore = totalScore + currentBalls - currentFouls;
+                scoreEl.innerText = totalScore;
+
+                ballsEl.innerText = '0';
+                foulsEl.innerText = '0';
+            });
         }
 
         function reset141() {
             document.getElementById('score14-a').innerText = '0';
             document.getElementById('score14-b').innerText = '0';
-            initBallCheckboxes('balls14-a', 14);
-            initBallCheckboxes('balls14-b', 14);
-        }
-
-        function resetMultiScores() {
-            document.querySelectorAll('.team-score').forEach(el => el.innerText = '0');
-        }
-
-        const colors = ['bg-sky-500', 'bg-lime-500', 'bg-amber-500', 'bg-rose-500', 'bg-indigo-500', 'bg-emerald-500'];
-        function addMultiTeam() {
-            const container = document.getElementById('multi-team-container');
-            const teamCount = container.children.length + 1;
-            const colorClass = colors[(teamCount - 1) % colors.length];
+            document.getElementById('current-balls-a').innerText = '0';
+            document.getElementById('current-balls-b').innerText = '0';
+            document.getElementById('current-fouls-a').innerText = '0';
+            document.getElementById('current-fouls-b').innerText = '0';
+            document.getElementById('name-14-a').innerText = 'A';
+            document.getElementById('name-14-b').innerText = 'B';
             
-            const teamCard = document.createElement('div');
-            teamCard.className = `${colorClass} rounded-xl p-6 text-white shadow relative`;
-            teamCard.innerHTML = `
-                <input type="text" value="隊伍 ${teamCount}" class="text-lg font-bold text-center bg-transparent border-b border-transparent hover:border-white focus:border-white focus:outline-none mb-4 w-full text-white">
-                <div class="text-5xl font-black my-4 team-score">0</div>
-                <div class="flex justify-center gap-3">
-                    <button onclick="adjustTeamScore(this, 1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-1.5 rounded font-bold text-sm transition">+1</button>
-                    <button onclick="adjustTeamScore(this, -1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-1.5 rounded font-bold text-sm transition">-1</button>
-                </div>
-            `;
-            container.appendChild(teamCard);
+            document.getElementById('color-14-a').value = '#0d9488';
+            document.getElementById('color-14-b').value = '#ea580c';
+            update141Color('a');
+            update141Color('b');
         }
 
-        function removeMultiTeam() {
-            const container = document.getElementById('multi-team-container');
-            if (container.children.length > 1) {
-                container.removeChild(container.lastChild);
-            }
-        }
-
+        // ==========================================
+        //  練習紀錄管理 (核心 LocalStorage 自動持久化存檔)
+        // ==========================================
+        
         function openRecordModal() {
             document.getElementById('record-modal').classList.remove('hidden');
         }
@@ -340,6 +412,41 @@
             document.getElementById('modal-file').value = '';
         }
 
+        // 核心：從資料庫撈出數據並自動生成卡片
+        function loadRecords() {
+            const grid = document.getElementById('records-grid');
+            grid.innerHTML = ''; 
+            
+            const records = JSON.parse(localStorage.getItem('billiard_records')) || [];
+            
+            records.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group";
+                
+                let imgHtml = `
+                    <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-400 border-b border-gray-200">
+                        <i class="fa-regular fa-image text-4xl"></i>
+                    </div>`;
+                
+                if (item.image) {
+                    imgHtml = `
+                        <div class="h-48 overflow-hidden border-b border-gray-200">
+                            <img src="${item.image}" class="w-full h-full object-cover">
+                        </div>`;
+                }
+                
+                card.innerHTML = `
+                    ${imgHtml}
+                    <div class="p-4 flex justify-between items-center bg-gray-50">
+                        <span class="font-medium text-gray-700">${item.title}</span>
+                        <button onclick="deleteRecord(${index})" class="text-red-400 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 新增紀錄，同時將圖片轉成 base64 字串存入 LocalStorage
         function saveRecord() {
             const title = document.getElementById('modal-title').value.trim();
             if (!title) {
@@ -347,45 +454,40 @@
                 return;
             }
 
-            const grid = document.getElementById('records-grid');
-            const card = document.createElement('div');
-            card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group";
-            
             const fileInput = document.getElementById('modal-file');
+            const records = JSON.parse(localStorage.getItem('billiard_records')) || [];
+
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    card.innerHTML = `
-                        <div class="h-48 overflow-hidden border-b border-gray-200">
-                            <img src="${e.target.result}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4 flex justify-between items-center bg-gray-50">
-                            <span class="font-medium text-gray-700">${title}</span>
-                            <button onclick="this.closest('.group').remove()" class="text-red-400 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    `;
+                    records.push({ title: title, image: e.target.result });
+                    localStorage.setItem('billiard_records', JSON.stringify(records));
+                    loadRecords();
+                    closeRecordModal();
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                card.innerHTML = `
-                    <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-400 border-b border-gray-200">
-                        <i class="fa-regular fa-image text-4xl"></i>
-                    </div>
-                    <div class="p-4 flex justify-between items-center bg-gray-50">
-                        <span class="font-medium text-gray-700">${title}</span>
-                        <button onclick="this.closest('.group').remove()" class="text-red-400 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                `;
+                records.push({ title: title, image: null });
+                localStorage.setItem('billiard_records', JSON.stringify(records));
+                loadRecords();
+                closeRecordModal();
             }
-
-            grid.appendChild(card);
-            closeRecordModal();
         }
 
+        // 刪除指定索引的卡片紀錄
+        function deleteRecord(index) {
+            const records = JSON.parse(localStorage.getItem('billiard_records')) || [];
+            records.splice(index, 1);
+            localStorage.setItem('billiard_records', JSON.stringify(records));
+            loadRecords();
+        }
+
+        // 初始化網頁時載入基礎設定與本地歷史筆記
         window.onload = function() {
             reset9Ball();
             reset8Ball();
             reset141();
+            loadRecords(); 
         };
     </script>
 </body>
