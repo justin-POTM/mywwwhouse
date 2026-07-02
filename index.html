@@ -27,7 +27,7 @@
                 <i class="fa-solid fa-house"></i> 首頁
             </button>
             
-            <div class="pt-4 pb-2 text-xs font-semibold text-slate-400 uppercase tracking-wider px-4">記分板目錄</div>
+            <div class="pt-4 pb-2 text-xs font-semibold text-slate-400 uppercase tracking-wider px-4">目錄</div>
             <button onclick="switchPage('score-9ball')" class="nav-btn w-full text-left py-2.5 px-4 rounded-lg hover:bg-slate-700 transition flex items-center gap-3 text-slate-300">
                 <i class="fa-solid fa-star-of-life"></i> 9 號球記分板
             </button>
@@ -50,28 +50,24 @@
         <section id="page-home" class="page active space-y-8">
             <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 text-white shadow-md">
                 <h2 class="text-3xl font-extrabold mb-2">歡迎使用撞球小工具</h2>
-                <p class="text-emerald-500-foreground opacity-90">專為撞球愛好者設計的數位計分與練習管理系統。</p>
             </div>
             
             <div>
                 <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center gap-2">
-                    <i class="fa-solid fa-star text-amber-500"></i> 核心功能目錄
+                    <i class="fa-solid fa-star text-amber-500"></i> 功能
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div onclick="switchPage('score-9ball')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition">9</div>
                         <h4 class="font-bold text-lg mb-1">9 號球記分板</h4>
-                        <p class="text-gray-500 text-sm">快捷追蹤對局局數與得分狀態。</p>
                     </div>
                     <div onclick="switchPage('score-8ball')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-purple-600 group-hover:text-white transition">8</div>
                         <h4 class="font-bold text-lg mb-1">8 號球記分板</h4>
-                        <p class="text-gray-500 text-sm">標準 8 號球對抗計分管理。</p>
                     </div>
                     <div onclick="switchPage('score-14and1')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-amber-600 group-hover:text-white transition">14</div>
                         <h4 class="font-bold text-lg mb-1">14&1 記分板</h4>
-                        <p class="text-gray-500 text-sm">單局進球與犯規自動累算機制。</p>
                     </div>
                     <div onclick="switchPage('records')" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition cursor-pointer group">
                         <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-pen-to-square"></i></div>
@@ -84,7 +80,7 @@
 
         <section id="page-score-9ball" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">9 號球標準記分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">9 號球記分板</h2>
                 <button onclick="reset9Ball()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 landscape:grid-cols-2 gap-6">
@@ -123,7 +119,7 @@
 
         <section id="page-score-8ball" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">8 號球標準記分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">8 號球記分板</h2>
                 <button onclick="reset8Ball()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 landscape:grid-cols-2 gap-6">
@@ -162,7 +158,7 @@
 
         <section id="page-score-14and1" class="page space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">14&1 連續計分板</h2>
+                <h2 class="text-2xl font-bold text-gray-800">14&1 計分板</h2>
                 <button onclick="reset141()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm transition">重置</button>
             </div>
             
@@ -182,7 +178,7 @@
                     <hr class="my-4 border-gray-100">
                     <div class="space-y-4">
                         <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <p class="text-sm font-semibold text-gray-500 mb-2">單局進球數</p>
+                            <p class="text-sm font-semibold text-gray-500 mb-2">進球數</p>
                             <div class="flex justify-center items-center gap-4">
                                 <button onclick="changeCurrentStat('current-balls-a', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
                                 <span id="current-balls-a" class="text-2xl font-bold text-gray-700 min-w-[40px]">0</span>
@@ -190,7 +186,7 @@
                             </div>
                         </div>
                         <div class="bg-rose-50/50 p-3 rounded-xl border border-rose-100">
-                            <p class="text-sm font-semibold text-rose-600 mb-2">本輪犯規扣分</p>
+                            <p class="text-sm font-semibold text-rose-600 mb-2">犯規</p>
                             <div class="flex justify-center items-center gap-4">
                                 <button onclick="changeCurrentStat('current-fouls-a', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
                                 <span id="current-fouls-a" class="text-2xl font-bold text-rose-600 min-w-[40px]">0</span>
@@ -215,7 +211,7 @@
                     <hr class="my-4 border-gray-100">
                     <div class="space-y-4">
                         <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <p class="text-sm font-semibold text-gray-500 mb-2">單局進球數</p>
+                            <p class="text-sm font-semibold text-gray-500 mb-2">進球數</p>
                             <div class="flex justify-center items-center gap-4">
                                 <button onclick="changeCurrentStat('current-balls-b', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
                                 <span id="current-balls-b" class="text-2xl font-bold text-gray-700 min-w-[40px]">0</span>
@@ -223,7 +219,7 @@
                             </div>
                         </div>
                         <div class="bg-rose-50/50 p-3 rounded-xl border border-rose-100">
-                            <p class="text-sm font-semibold text-rose-600 mb-2">本輪犯規扣分</p>
+                            <p class="text-sm font-semibold text-rose-600 mb-2">犯規</p>
                             <div class="flex justify-center items-center gap-4">
                                 <button onclick="changeCurrentStat('current-fouls-b', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full font-bold text-lg flex items-center justify-center hover:bg-gray-300">-</button>
                                 <span id="current-fouls-b" class="text-2xl font-bold text-rose-600 min-w-[40px]">0</span>
@@ -236,7 +232,7 @@
 
             <div class="pt-4">
                 <button onclick="calculateAll141()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-2xl shadow-md transition flex items-center justify-center gap-3 text-lg tracking-wider">
-                    <i class="fa-solid fa-calculator text-xl"></i> ENTER (結算雙方本局得分)
+                    <i class="fa-solid fa-calculator text-xl"></i> ENTER
                 </button>
             </div>
         </section>
